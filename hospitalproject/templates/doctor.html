@@ -1,0 +1,137 @@
+{% extends 'dummy_base.html' %}
+
+{% block title %}
+Doctors
+{% endblock %}
+
+{% block content %}
+<style>
+
+body {
+    position: relative;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(
+        135deg,
+        #ffecd2,
+        #ffdde1,
+        #a1c4fd
+    );
+    background-attachment: fixed;
+    background-size: cover;
+    overflow-x: hidden;
+}
+
+.doc-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 60px auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.doc-title {
+    font-size: 2.4rem;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.doc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 35px;
+    justify-items: center;
+}
+
+.doc-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 25px 15px 30px 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 280px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(6px);
+}
+
+.doc-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.doc-photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #f4ede4;
+    margin-bottom: 15px;
+    background-color: #eee;
+    transition: transform 0.3s ease;
+}
+
+.doc-card:hover .doc-photo {
+    transform: scale(1.05);
+}
+
+.doc-name {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.doc-special {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.doc-dept {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border-radius: 12px;
+    background: #e3f2fd;
+    color: #0d47a1;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.doc-exp {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.no-data {
+    grid-column: 1/-1;
+    color: #999;
+    font-size: 1.1rem;
+    margin-top: 20px;
+}
+</style>
+
+<div class="doc-container">
+    <h1 class="doc-title">MEET OUR SPECIALISTS</h1>
+
+    <div class="doc-grid">
+        {% for doctor in doctors %}
+        <div class="doc-card">
+            {% if doctor.photo %}
+                <img src="{{ doctor.photo.url }}" alt="Doctor Photo" class="doc-photo">
+            {% else %}
+                <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" alt="Default Doctor" class="doc-photo">
+            {% endif %}
+            <h2 class="doc-name">Dr. {{ doctor.name }}</h2>
+            <p class="doc-special">{{ doctor.specialization }}</p>
+            <span class="doc-dept">{{ doctor.department.name }}</span>
+            <p class="doc-exp">{{ doctor.experience }} years of experience</p>
+        </div>
+        {% empty %}
+        <p class="no-data">No doctors available at the moment.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'dummy_base.html' %}
+
+{% block title %}
+Track Appointment
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f5f6fa;
+    }
+
+    .track-container {
+        max-width: 600px;
+        margin: 60px auto;
+        padding: 35px 45px;
+        background: #ffffff;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        border-radius: 18px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 25px;
+        font-weight: 600;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+
+    input:focus {
+        border-color: #4b7bec;
+        box-shadow: 0 0 5px rgba(75, 123, 236, 0.4);
+    }
+
+    button {
+        background-color: #4b7bec;
+        color: white;
+        font-weight: 600;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #3867d6;
+        transform: scale(1.02);
+    }
+
+    .details-box {
+        margin-top: 25px;
+        background: #f9f9f9;
+        border-radius: 12px;
+        padding: 20px;
+    }
+
+    .error {
+        color: red;
+        text-align: center;
+        margin-top: 10px;
+        font-weight: 600;
+    }
+</style>
+
+<div class="track-container">
+    <h2>Track Your Appointment</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label>Enter your token number:</label>
+        <input type="text" name="token_number" placeholder="e.g. 1001" required>
+        <button type="submit">Check Status</button>
+    </form>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if appointment %}
+        <div class="details-box">
+            <p><strong>Patient:</strong> {{ appointment.patient_name }}</p>
+            <p><strong>Doctor:</strong> {{ appointment.doctor.name }}</p>
+            <p><strong>Date:</strong> {{ appointment.date }}</p>
+            <p><strong>Time:</strong> {{ appointment.time }}</p>
+            <p><strong>Status:</strong> {{ appointment.status }}</p>
+            <p><strong>Token Number:</strong> {{ appointment.token_number }}</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

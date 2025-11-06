@@ -1,0 +1,143 @@
+{% extends 'dummy_base.html' %}
+
+{% block title %}
+Prescription
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #e6f0ff, #f9fbff);
+        background-attachment: fixed;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .content-wrapper {
+        margin-top: 50px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    h2 {
+        font-weight: 600;
+        color: #0a3d62;
+    }
+
+    .btn-primary {
+        background-color: #4b7bec;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 25px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: #3867d6;
+        transform: scale(1.03);
+    }
+
+    input {
+        border-radius: 10px;
+        border: 1px solid #b3c6ff;
+        padding: 10px 15px;
+        transition: 0.3s;
+    }
+
+    input:focus {
+        border-color: #4b7bec;
+        box-shadow: 0 0 5px rgba(75, 123, 236, 0.4);
+    }
+
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .card-header {
+        font-weight: 600;
+    }
+
+    .card-body p {
+        margin-bottom: 8px;
+        color: #2d3436;
+    }
+
+    .alert {
+        border-radius: 12px;
+        font-weight: 500;
+    }
+</style>
+
+<div class="content-wrapper">
+    <div class="container">
+        <h2 class="text-center mt-4 mb-4">Check Prescription & Invoice</h2>
+
+        <form method="POST" class="text-center mb-4">
+            {% csrf_token %}
+            <input type="text" name="token" placeholder="Enter your Token Number" class="form-control d-inline w-auto" required>
+            <button type="submit" class="btn btn-primary">View Details</button>
+        </form>
+
+        {% if error %}
+            <div class="alert alert-danger text-center shadow-sm">{{ error }}</div>
+        {% endif %}
+
+        {% if appointment %}
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    Appointment Details
+                </div>
+                <div class="card-body">
+                    <p><strong>Patient:</strong> {{ appointment.patient.name }}</p>
+                    <p><strong>Doctor:</strong> {{ appointment.doctor }}</p>
+                    <p><strong>Department:</strong> {{ appointment.department }}</p>
+                    <p><strong>Date:</strong> {{ appointment.date }}</p>
+                    <p><strong>Time:</strong> {{ appointment.time }}</p>
+                    <p><strong>Status:</strong> {{ appointment.status }}</p>
+                </div>
+            </div>
+
+            {% if prescription %}
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-success text-white">
+                    Prescription Details
+                </div>
+                <div class="card-body">
+                    <p><strong>Diagnosis:</strong> {{ prescription.diagnosis }}</p>
+                    <p><strong>Medicines:</strong> {{ prescription.medicines }}</p>
+                    <p><strong>Advice:</strong> {{ prescription.advice }}</p>
+                    <p><strong>Date Issued:</strong> {{ prescription.date_issued }}</p>
+                </div>
+            </div>
+            {% else %}
+                <div class="alert alert-warning text-center shadow-sm">No prescription found for this token.</div>
+            {% endif %}
+
+            {% if invoice %}
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-info text-white">
+                    Invoice Details
+                </div>
+                <div class="card-body">
+                    <p><strong>Consultation Fee:</strong> ₹{{ invoice.consultation_fee }}</p>
+                    <p><strong>Medicine Cost:</strong> ₹{{ invoice.medicine_cost }}</p>
+                    <p><strong>Other Charges:</strong> ₹{{ invoice.other_charges }}</p>
+                    <hr>
+                    <p><strong>Total Amount:</strong> ₹{{ invoice.total_amount }}</p>
+                    <p><strong>Date Issued:</strong> {{ invoice.date_issued }}</p>
+                </div>
+            </div>
+            {% else %}
+                <div class="alert alert-warning text-center shadow-sm">No invoice found for this token.</div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

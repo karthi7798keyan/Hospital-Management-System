@@ -1,0 +1,872 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Hospital Management System{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+
+        .hero {
+            background: linear-gradient(135deg, #ffecb3, #ffcc80);
+        }
+
+
+        footer .footer-container {
+            background: linear-gradient(135deg, #b2ebf2, #80deea);
+            max-width: 70%;
+        }
+    </style>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #fefefe, #e0f7fa);
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #ffe0b2, #b2ebf2);
+            padding: 80px 0;
+            border-radius: 20px;
+            margin: 10px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #3a3a3a;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .hero .btn-appointment {
+            background-color: #ff7f50;
+            color: white;
+            font-weight: 600;
+            padding: 12px 30px;
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hero .btn-appointment:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .navbar {
+            background: #ffffff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            margin: 10px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #3a3a3a;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-item:hover .nav-link {
+            color: #ff7f50;
+            transform: scale(1.1);
+        }
+
+        .navbar-toggler .custom-toggler {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%233a3a3a' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section h2 {
+            color: #3a3a3a;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .card {
+            border-radius: 20px;
+            background: linear-gradient(145deg, #ffffff, #e0f7fa);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .section .card {
+            border-radius: 15px;
+            background: linear-gradient(145deg, #ffffff, #e0f7fa);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .section h4, .section h5 {
+            margin-bottom: 5px;
+        }
+
+        .specialist-box {
+            flex: 0 1 200px;
+            height: 100px;
+            background-color: #f0f8ff;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #333;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .specialist-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .specialist-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .content-box {
+            display: flex;
+            align-items: center;
+            margin: 60px 0;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .content-box img {
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            width: 600px;
+            height: auto;
+        }
+
+        .content-box .content-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        footer {
+            background: transparent;
+            padding: 40px 0;
+        }
+
+        .footer-container {
+            max-width: 80%;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #ffe0b2, #b2ebf2);
+            border-radius: 20px 20px 40px 40px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .footer-icons a {
+            color: #3a3a3a;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .footer-icons a:hover {
+            color: #ff7f50;
+            transform: scale(1.2);
+        }
+    </style>
+
+    <style>
+
+.hero {
+  background: linear-gradient(135deg, #f8faff 0%, #e9f3ff 100%);
+  overflow: hidden;
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+}
+
+.hero-img {
+  z-index: 2;
+  max-height: 440px;
+  width: 100%;
+  height: auto;
+  transform: scale(1.15);
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.15));
+  transition: all 0.3s ease;
+  object-fit: contain;
+}
+
+.hero .position-absolute.rounded-circle {
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(180,210,255,0.4) 0%, transparent 70%);
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 992px) {
+  .hero {
+    min-height: 65vh;
+  }
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .hero-img {
+    max-height: 400px;
+    transform: scale(1.1);
+  }
+  .hero .position-absolute.rounded-circle {
+    width: 450px;
+    height: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 55vh;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 0.95rem;
+  }
+  .hero-img {
+    max-height: 360px;
+    transform: scale(1.05);
+  }
+  .hero .position-absolute.rounded-circle {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero {
+    min-height: 50vh;
+    padding-top: 30px;
+  }
+  .hero h1 {
+    font-size: 1.7rem;
+  }
+  .hero p {
+    font-size: 0.9rem;
+  }
+  .hero-img {
+    max-height: 320px;
+    transform: scale(1);
+  }
+  .hero .position-absolute.rounded-circle {
+    width: 280px;
+    height: 280px;
+  }
+}
+
+.health-card {
+    border-radius: 20px;
+    background: linear-gradient(145deg, #ffffff, #e0f7fa);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 25px;
+    text-align: center;
+}
+
+.health-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+.health-plan-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.health-plan-card:hover {
+  background: linear-gradient(70deg, #ffe6f0, #ffd6e8);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+{% if messages %}
+    <div class="container mt-3">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+
+<nav class="navbar navbar-expand-md navbar-light">
+  <div class="container">
+   <span class="navbar-brand fw-bold"
+      style="color: #1a1a1a;
+             font-size: 1.6rem;
+             ">
+  Hospital Management System
+</span>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon custom-toggler"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active"><a class="nav-link text-dark" href="{% url 'appointment' %}">Appointment</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="{% url 'department' %}">Department</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="{% url 'doctor' %}">Doctor</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="{% url 'invoice_list' %}">Invoice</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="{% url 'patient' %}">Patient</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="{% url 'prescription' %}">Prescription</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<style>
+.glow-text {
+  color: #1a1a1a;
+  font-weight: 700;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.2),
+               0 0 10px rgba(0, 0, 0, 0.1);
+  transition: text-shadow 0.3s ease;
+}
+
+.glow-text:hover {
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.4),
+               0 0 15px rgba(0, 0, 0, 0.3);
+}
+</style>
+
+
+<section class="hero d-flex align-items-center py-5"
+         style="background: linear-gradient(135deg, #f8faff 0%, #e9f3ff 100%);
+                overflow: hidden; min-height: 75vh;">
+  <div class="container">
+    <div class="row align-items-center">
+
+
+      <div class="col-lg-6 col-md-12 mb-5 mb-lg-0 position-relative" style="z-index: 5;">
+        <h1 class="fw-bold mb-3 display-5" style="color: #ff6f61;">
+
+          Welcome to <br> Hospital Management System
+        </h1>
+        <p class="lead mb-4 text-secondary">
+          Your health is our top priority. We combine expert medical care, modern technology,
+          and compassionate service to ensure the best treatment for every patient.
+        </p>
+
+        <a href="{% url 'appointment' %}" class="btn btn-primary btn-lg px-4 shadow-sm mb-4">
+          Book Appointment
+        </a>
+
+        <div class="row g-3 text-center">
+          <div class="col-4">
+            <div class="p-3 bg-white rounded shadow-sm">
+              <h4 class="text-primary mb-0">50+</h4>
+              <p class="mb-0 small">Doctors</p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="p-3 bg-white rounded shadow-sm">
+              <h4 class="text-primary mb-0">1200+</h4>
+              <p class="mb-0 small">Patients</p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="p-3 bg-white rounded shadow-sm">
+              <h4 class="text-primary mb-0">24/7</h4>
+              <p class="mb-0 small">Service</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-6 col-md-12 text-center position-relative" style="z-index: 1;">
+        <div class="position-relative d-inline-block" style="z-index: 1;">
+
+          <div class="position-absolute top-50 start-50 translate-middle rounded-circle"
+               style="width: 550px; height: 550px;
+                      background: radial-gradient(circle, rgba(180,210,255,0.4) 0%, transparent 70%);
+                      z-index: 1;">
+          </div>
+
+
+          <img src="{% static 'images/index_new.png' %}"
+               alt="Doctor Illustration"
+               class="hero-img position-relative"
+               >
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="text-center my-5">
+  <div class="container">
+    <div class="d-flex justify-content-center flex-wrap gap-4">
+
+
+      <button class="btn btn-warning btn-lg px-4 shadow-sm d-flex align-items-center"
+              data-bs-toggle="modal" data-bs-target="#callbackModal">
+        <i class="fas fa-phone-alt me-2"></i>
+        Request a Callback
+      </button>
+
+
+<a href="javascript:void(0);" id="checkupBtn"
+   class="btn btn-success btn-lg px-4 shadow-sm d-flex align-items-center">
+  <i class="fas fa-heartbeat me-2"></i>
+  Get Health Checkup
+</a>
+
+<div id="healthPlans" class="mt-4" style="display: none;">
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card health-plan-card shadow-sm border-0 h-100">
+        <div class="card-body d-flex flex-column text-center">
+          <h5 class="card-title text-primary fw-bold">Basic Plan</h5>
+          <p class="text-secondary">General checkup, blood test & doctor consultation.</p>
+          <p class="fw-bold">₹999</p>
+          <a href="{% url 'appointment' %}" class="btn btn-outline-primary btn-sm mt-auto">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card health-plan-card shadow-sm border-0 h-100">
+        <div class="card-body d-flex flex-column text-center">
+          <h5 class="card-title text-success fw-bold">Advanced Plan</h5>
+          <p class="text-secondary">Full body checkup with ECG, X-Ray & report.</p>
+          <p class="fw-bold">₹2499</p>
+          <a href="{% url 'appointment' %}" class="btn btn-outline-success btn-sm mt-auto">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card health-plan-card shadow-sm border-0 h-100">
+        <div class="card-body d-flex flex-column text-center">
+          <h5 class="card-title text-danger fw-bold">Premium Plan</h5>
+          <p class="text-secondary">Complete diagnostics with scan & diet plan.</p>
+          <p class="fw-bold">₹4999</p>
+          <a href="{% url 'appointment' %}" class="btn btn-outline-danger btn-sm mt-auto">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 style="color: #404040; font-weight: 700;">HOSPITAL STATISTICS</h2>
+        <div class="row g-4 text-center">
+            <div class="col-md-3">
+                <div class="card p-4">
+                    <i class="fas fa-procedures fa-2x mb-2" style="color:#ff7f50;"></i>
+                    <h4 style="font-size:2rem;">1200</h4>
+                    <p>Patients</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-4">
+                    <i class="fas fa-map-marker-alt fa-2x mb-2" style="color:#00bfa5;"></i>
+                    <h4 style="font-size:2rem;">5</h4>
+                    <p>Locations</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-4">
+                    <i class="fas fa-ambulance fa-2x mb-2" style="color:#ffd600;"></i>
+                    <h4 style="font-size:2rem;">300</h4>
+                    <p>Emergencies Attended</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-4">
+                    <i class="fas fa-user-md fa-2x mb-2" style="color:#ff69b4;"></i>
+                    <h4 style="font-size:2rem;">50</h4>
+                    <p>Doctors</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 style="color: #404040; font-weight: 700;">OUR SPECIALISTS AND TREATMENTS</h2>
+        <div class="specialist-section">
+            <div class="specialist-box">Cardiology</div>
+            <div class="specialist-box">Neurology</div>
+            <div class="specialist-box">Radiology</div>
+            <div class="specialist-box">Vaccination</div>
+            <div class="specialist-box">General Checkup</div>
+            <div class="specialist-box">Pharmacy Services</div>
+            <div class="specialist-box">Dermatologist</div>
+            <div class="specialist-box">Pediatrics</div>
+            <div class="specialist-box">Orthopedics</div>
+            <div class="specialist-box">ENT</div>
+            <div class="specialist-box">Ophthalmology</div>
+            <div class="specialist-box">Psychiatry</div>
+        </div>
+    </div>
+</section>
+
+<style>
+.specialist-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.specialist-box {
+    flex: 0 1 200px;
+    height: 100px;
+    background-color: #f0f8ff;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.specialist-box:hover {
+    transform: translateY(-5px);
+    background-color: #ffffff;
+    box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
+}
+</style>
+
+<section class="section">
+  <div class="container">
+
+    <style>
+      .content-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 50px;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+
+      .content-box img {
+        width: 100%;
+        max-width: 500px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+      }
+
+      .content-box img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      }
+
+      .content-text {
+        flex: 1;
+        min-width: 250px;
+      }
+
+      .content-text h3 {
+        color: #007bff;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .content-text p {
+        color: #555;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        text-align: justify;
+      }
+
+      @media (max-width: 768px) {
+        .content-box {
+          flex-direction: column;
+          text-align: center;
+        }
+        .content-box img {
+          max-width: 100%;
+        }
+      }
+    </style>
+
+    <div class="content-box">
+      <img src="{% static 'images/emergency_services.jpeg' %}" alt="Emergency Services">
+      <div class="content-text">
+        <h3>Emergency Services</h3>
+        <p>
+          Our emergency department operates round the clock, ensuring immediate medical attention for all critical cases.
+          We have a dedicated team of trauma specialists, paramedics, and emergency physicians who respond swiftly to any crisis.
+          Equipped with modern ambulances and advanced life support systems, we ensure every second counts in saving lives.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-box" style="flex-direction: row-reverse;">
+      <img src="{% static 'images/hospital_room.jpg' %}" alt="Hospital Room">
+      <div class="content-text">
+        <h3>Hospital Rooms</h3>
+        <p>
+          Our patient rooms are designed for comfort, safety, and care. Each room features spacious interiors,
+          modern amenities, and a calming environment to promote faster recovery.
+          Whether you choose private, semi-private, or deluxe accommodation, every room offers 24/7 nursing support and medical monitoring.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-box">
+      <img src="{% static 'images/medical_team.jpg' %}" alt="Medical Team">
+      <div class="content-text">
+        <h3>Medical Team</h3>
+        <p>
+          Our hospital brings together an expert panel of doctors, nurses, and specialists from diverse fields.
+          Each member of our medical team is dedicated to delivering personalized care using evidence-based practices
+          and the latest medical technologies. Their compassion, experience, and teamwork ensure the best outcomes for our patients.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+    <div class="footer-container" style="max-width: 80%; margin: 0 auto; text-align: center; padding: 30px;">
+
+        <div style="margin-bottom: 20px;">
+            <p><strong>Emergency Contact:</strong> 01-23456789</p>
+            <p><strong>Address:</strong> 123 Mystic Falls Road, Mystic Falls, 98765, USA</p>
+        </div>
+
+<div style="margin-bottom: 20px;">
+    <h5 style="margin-bottom: 10px; font-weight: 700;">Quick Links</h5>
+    <ul style="list-style: none; padding: 0; margin: 0; display: inline-flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+        <li><a href="{% url 'future_page' %}" style="text-decoration: none; color: #3a3a3a;">
+            <i class="fas fa-info-circle"></i> About Us
+        </a></li>
+        <li><a href="{% url 'future_page' %}" style="text-decoration: none; color: #3a3a3a;">
+            <i class="fas fa-briefcase"></i> Careers
+        </a></li>
+        <li><a href="{% url 'future_page' %}" style="text-decoration: none; color: #3a3a3a;">
+            <i class="fas fa-rss"></i> Blog
+        </a></li>
+        <li><a href="{% url 'future_page' %}" style="text-decoration: none; color: #3a3a3a;">
+            <i class="fas fa-user-shield"></i> Privacy Policy
+        </a></li>
+        <li><a href="{% url 'future_page' %}" style="text-decoration: none; color: #3a3a3a;">
+            <i class="fas fa-question-circle"></i> FAQs
+        </a></li>
+    </ul>
+</div>
+
+<div style="margin-bottom: 20px; display: flex; justify-content: center; align-items: center; gap: 15px;">
+  <h5 style="
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #000;
+">
+    Stay in touch |
+  </h5>
+  <div class="footer-icons" style="display: flex; justify-content: center; gap: 15px;">
+    <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+    <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+  </div>
+</div>
+
+        <div>
+            <p>&copy; 2025 Hospital Management System. All Rights Reserved.</p>
+        </div>
+
+    </div>
+</footer>
+
+<div class="modal fade" id="callbackModal" tabindex="-1" aria-labelledby="callbackModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow-lg border-0">
+      <div class="modal-header bg-warning text-dark rounded-top-4">
+        <h5 class="modal-title fw-bold" id="callbackModalLabel">
+          <i class="fas fa-phone-alt me-2"></i>Request a Callback
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-4">
+        <form method="POST" action="{% url 'request_callback' %}">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="name" class="form-label fw-semibold">Your Name</label>
+            <input type="text" class="form-control" id="name" name="name" required placeholder="Enter your name">
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label fw-semibold">Phone Number</label>
+            <input type="tel" class="form-control" id="phone" name="phone" required placeholder="Enter your phone number">
+          </div>
+          <div class="mb-3">
+  <label for="preferred_time" class="form-label fw-semibold">Preferred Time to Call</label>
+  <input
+    type="text"
+    class="form-control"
+    id="preferred_time"
+    name="preferred_time"
+    placeholder="e.g., Morning, Afternoon, Evening">
+</div>
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-warning px-4 fw-bold">Submit Request</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.hero-img {
+  z-index: 2;
+  max-height: 440px;
+  width: 100%;
+  height: auto;
+  transform: scale(1.4);
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.15));
+  transition: transform 0.3s ease;
+  object-fit: contain;
+}
+
+.hero .position-absolute.rounded-circle {
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(180,210,255,0.4) 0%, transparent 70%);
+  z-index: 1;
+}
+
+@media (max-width: 992px) {
+  .hero-img {
+    transform: scale(1.1);
+    max-height: 380px;
+  }
+  .hero .position-absolute.rounded-circle {
+    width: 450px;
+    height: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-img {
+    max-height: 360px;
+    transform: scale(1.1);
+  }
+  .hero .position-absolute.rounded-circle {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-img {
+    max-height: 340px;
+    transform: scale(1.05);
+  }
+  .hero .position-absolute.rounded-circle {
+    width: 300px;
+    height: 300px;
+  }
+}
+</style>
+
+<script>
+document.getElementById('checkupBtn').addEventListener('click', function() {
+  const plans = document.getElementById('healthPlans');
+  plans.style.display = (plans.style.display === 'none' || plans.style.display === '') ? 'block' : 'none';
+  this.innerHTML = (plans.style.display === 'block')
+    ? '<i class="fas fa-times me-2"></i> Hide Health Plans'
+    : '<i class="fas fa-heartbeat me-2"></i> Get Health Checkup';
+});
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+

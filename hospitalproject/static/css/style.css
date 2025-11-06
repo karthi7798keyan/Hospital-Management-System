@@ -1,0 +1,23 @@
+.navbar-nav .nav-item {
+    margin: 0 2px;
+}
+
+
+.navbar-nav .nav-item a.nav-link {
+    color: #000000;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 15px;
+    transition: color 0.15s ease-in-out, transform 0.15s ease-in-out, background 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease-in-out;
+}
+
+
+.navbar-nav .nav-item a.nav-link:hover {
+    color: #ff4d6d;
+    background: linear-gradient(135deg, #d4f7dc 0%, #d6c2ff 100%);
+    transform: scale(0.97);
+    box-shadow: 0 4px 10px rgba(255, 182, 193, 0.3);
+    border-radius: 12px;
+}
+
+

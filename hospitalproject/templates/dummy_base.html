@@ -1,0 +1,340 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      {% block title %}
+      Hospital Management System
+      {% endblock %}
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+
+
+.navbar-spacer {
+    height: 100px; /* adjust according to your navbar height */
+}
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    border-radius: 0;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    position: relative;
+    font-weight: 700;
+    color: #3a3a3a;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover,
+.navbar-brand.active-brand {
+    color: #00bfff;
+    text-shadow: 0 0 4px rgba(0, 191, 255, 0.6), 0 0 6px rgba(0, 191, 255, 0.4);
+    transform: scale(1.03);
+}
+
+body {
+    padding-top: 80px;
+}
+
+
+.nav-link.active-page {
+    color: #ffffff !important;
+    background: #ff7f50;
+    padding: 6px 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(255, 127, 80, 0.4);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.nav-link.active-page:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(255, 127, 80, 0.6);
+}
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background: linear-gradient(135deg, #fefefe, #e0f7fa);
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      main {
+        flex: 1 0 auto;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #ffe0b2, #b2ebf2);
+        padding: 80px 0;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        color: #3a3a3a;
+        margin-bottom: 20px;
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+        color: #555;
+        margin-bottom: 30px;
+      }
+
+      .hero .btn-appointment {
+        background-color: #ff7f50;
+        color: white;
+        font-weight: 600;
+        padding: 12px 30px;
+        border-radius: 50px;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .hero .btn-appointment:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      }
+
+      .navbar {
+        background: #ffffff;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        border-radius: 0px;
+      }
+
+      .navbar-nav .nav-link {
+        color: #3a3a3a;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .navbar-nav .nav-item:hover .nav-link {
+        color: #ff7f50;
+        transform: scale(1.1);
+      }
+
+      .navbar-toggler .custom-toggler {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%233a3a3a' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+      }
+
+      .section {
+        padding: 80px 0;
+      }
+
+      .section h2 {
+        color: #3a3a3a;
+        margin-bottom: 40px;
+        text-align: center;
+      }
+
+      .card {
+        border-radius: 20px;
+        background: linear-gradient(145deg, #ffffff, #e0f7fa);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+      }
+
+      footer {
+        background: linear-gradient(135deg, #ffe0b2, #b2ebf2);
+        color: #3a3a3a;
+        padding: 40px 0;
+        border-radius: 20px 20px 0 0;
+        margin-top: 40px;
+      }
+
+      .footer-icons a {
+        color: #3a3a3a;
+        margin: 0 10px;
+        font-size: 1.5rem;
+        transition: transform 0.3s, color 0.3s;
+      }
+
+      .footer-icons a:hover {
+        color: #ff7f50;
+        transform: scale(1.2);
+      }
+
+      a {
+  text-decoration: none !important;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+
+    </style>
+
+      <style>
+
+
+.navbar-brand {
+    position: relative;
+    font-weight: 700;
+    color: #3a3a3a;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover,
+.navbar-brand.active-brand {
+    color: #00bfff;
+    text-shadow: 0 0 4px rgba(0, 191, 255, 0.6), 0 0 6px rgba(0, 191, 255, 0.4);
+    transform: scale(1.03);
+}
+
+</style>
+
+
+  </head>
+
+  <body>
+
+<nav class="navbar navbar-expand-md navbar-light fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{% url 'index' %}">Hospital Management System</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon custom-toggler"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link text-dark {% if request.resolver_match.url_name == 'appointment' %}active-page{% endif %}" href="{% url 'appointment' %}">
+            Appointment
+        </a></li>
+        <li class="nav-item"><a class="nav-link text-dark {% if request.resolver_match.url_name == 'department' %}active-page{% endif %}" href="{% url 'department' %}">
+            Department
+        </a></li>
+        <li class="nav-item"><a class="nav-link text-dark {% if request.resolver_match.url_name == 'doctor' %}active-page{% endif %}" href="{% url 'doctor' %}">
+            Doctor
+        </a></li>
+        <li class="nav-item"><a class="nav-link text-dark {% if request.resolver_match.url_name == 'invoice_list' %}active-page{% endif %}" href="{% url 'invoice_list' %}">
+            Invoice
+        </a></li>
+        <li class="nav-item"><a class="nav-link text-dark {% if request.resolver_match.url_name == 'patient' %}active-page{% endif %}" href="{% url 'patient' %}">
+            Patient
+        </a></li>
+        <li class="nav-item"><a class="nav-link text-dark {% if request.resolver_match.url_name == 'prescription' %}active-page{% endif %}" href="{% url 'prescription' %}">
+            Prescription
+        </a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+    <section class="hero">
+      <div class="container">
+        <h1>Welcome to Hospital Management System</h1>
+        <p>Your health is our top priority. Expert doctors and advanced facilities for everyone.</p>
+        <a href="{% url 'appointment' %}" class="btn-appointment">Book Appointment</a>
+      </div>
+    </section>
+
+
+    <main>
+      {% block content %}
+      <section class="section">
+        <div class="container">
+          <h2>Our Services</h2>
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card p-4 text-center">
+                <i class="fas fa-user-md fa-3x mb-3" style="color:#ff7f50;"></i>
+                <h5>Expert Doctors</h5>
+                <p>Our team of professional doctors provides top-notch healthcare services.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card p-4 text-center">
+                <i class="fas fa-hospital fa-3x mb-3" style="color:#00bfa5;"></i>
+                <h5>Advanced Facilities</h5>
+                <p>State-of-the-art infrastructure ensures the best patient experience.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card p-4 text-center">
+                <i class="fas fa-ambulance fa-3x mb-3" style="color:#ffd600;"></i>
+                <h5>Emergency Services</h5>
+                <p>Quick and reliable emergency care available 24/7 for all patients.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {% endblock %}
+    </main>
+
+
+<footer>
+  <div class="container text-center text-md-start">
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-3 mb-md-0">
+        <h6>Emergency Contact: 01-23456789</h6>
+        <h6>Address: 123 Mystic Falls Road, Mystic Falls, 98765, USA</h6>
+      </div>
+      <div class="col-md-6 text-md-end footer-icons">
+
+        <a href="https://www.facebook.com" target="_blank" title="Follow us on Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com" target="_blank" title="Follow us on Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.twitter.com" target="_blank" title="Follow us on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://www.linkedin.com" target="_blank" title="Follow us on LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://www.youtube.com" target="_blank" title="Follow us on YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <div class="mt-2">
+          © 2025 Hospital Management System. All Rights Reserved | Privacy Policy
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  </body>
+</html>

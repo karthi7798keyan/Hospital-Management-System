@@ -1,0 +1,142 @@
+{% extends 'dummy_base.html' %}
+
+{% block title %}
+Book Appointment
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f5f6fa;
+    }
+
+    .appointment-container {
+        max-width: 700px;
+        margin: 60px auto;
+        padding: 40px 50px;
+        background: #ffffff;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        border-radius: 18px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 25px;
+        font-weight: 600;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        border-color: #4b7bec;
+        box-shadow: 0 0 6px rgba(75, 123, 236, 0.3);
+    }
+
+
+    button {
+        background: #4b7bec;
+        color: white;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 40%;
+        align-self: center;
+    }
+
+    button:hover {
+        background: #3867d6;
+        transform: scale(1.03);
+        box-shadow: 0 4px 12px rgba(75, 123, 236, 0.3);
+    }
+
+    .success {
+        text-align: center;
+        color: green;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .or-divider {
+        text-align: center;
+        color: #888;
+        font-style: italic;
+        margin: 5px 0;
+    }
+</style>
+
+<div class="appointment-container">
+    <h2>Book an Appointment</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <h4>👤 Patient Details</h4>
+
+        <label for="id_patient_select">Existing Patient (optional):</label>
+        {{ form.patient_select }}
+
+        <div class="or-divider">— OR —</div>
+
+        <label for="id_patient_name">Full Name:</label>
+        {{ form.patient_name }}
+
+        <label for="id_age">Age:</label>
+        {{ form.age }}
+
+        <label for="id_gender">Gender:</label>
+        {{ form.gender }}
+
+        <label for="id_phone">Phone:</label>
+        {{ form.phone }}
+
+        <label for="id_address">Address:</label>
+        {{ form.address }}
+
+        <hr>
+
+        <h4>🩺 Appointment Details</h4>
+        <label for="id_department">Department:</label>
+        {{ form.department }}
+
+        <label for="id_doctor">Doctor:</label>
+        {{ form.doctor }}
+
+        <label for="id_date">Date:</label>
+        {{ form.date }}
+
+        <label for="id_time">Time:</label>
+        {{ form.time }}
+
+        <label for="id_description">Description:</label>
+        {{ form.description }}
+
+        <button type="submit">SUBMIT</button>
+    </form>
+</div>
+{% endblock %}

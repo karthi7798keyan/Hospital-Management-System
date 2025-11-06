@@ -1,0 +1,160 @@
+{% extends 'dummy_base.html' %}
+
+{% block title %}
+Invoices
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f7f4fb;
+    }
+
+    .invoice-section {
+        max-width: 950px;
+        margin: 60px auto;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 6px 18px rgba(155, 89, 182, 0.1);
+        overflow: hidden;
+    }
+
+    h2 {
+        background: linear-gradient(90deg, #e8d9f1, #f3e8ff);
+        color: #4a2f77;
+        padding: 20px;
+        text-align: center;
+        font-weight: 600;
+        border-bottom: 1px solid #e0d2f0;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 13px 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+        color: #333;
+    }
+
+    th {
+        background-color: #f4ecfa;
+        color: #4a2f77;
+        font-weight: 600;
+    }
+
+    tr:hover td {
+        background-color: #fbf8ff;
+    }
+
+    td:first-child {
+        font-weight: 600;
+        color: #5c2ea6;
+    }
+
+    .total {
+        font-weight: bold;
+        color: #5c2ea6;
+    }
+
+    .no-data {
+        text-align: center;
+        padding: 30px;
+        color: #888;
+        font-style: italic;
+    }
+
+
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 25px 0;
+        gap: 8px;
+    }
+
+    .pagination a, .pagination span {
+        color: #5c2ea6;
+        padding: 8px 15px;
+        text-decoration: none;
+        border-radius: 8px;
+        border: 1px solid #d6c1ef;
+        transition: 0.3s;
+        font-weight: 500;
+    }
+
+    .pagination a:hover {
+        background-color: #ede2fa;
+    }
+
+    .pagination .current {
+        background-color: #5c2ea6;
+        color: white;
+        border-color: #5c2ea6;
+    }
+
+    @media (max-width: 768px) {
+        table {
+            font-size: 14px;
+        }
+        th, td {
+            padding: 10px;
+        }
+    }
+</style>
+
+<div class="invoice-section">
+    <h2>Patient Invoices</h2>
+
+    {% if page_obj %}
+    <table>
+        <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Consultation Fee</th>
+                <th>Medicine Cost</th>
+                <th>Other Charges</th>
+                <th>Total</th>
+                <th>Issued</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for invoice in page_obj %}
+            <tr>
+                <td>{{ invoice.appointment.patient.name }}</td>
+                <td>{{ invoice.appointment.doctor.name }}</td>
+                <td>{{ invoice.appointment.date }}</td>
+                <td>₹{{ invoice.consultation_fee }}</td>
+                <td>₹{{ invoice.medicine_cost }}</td>
+                <td>₹{{ invoice.other_charges }}</td>
+                <td class="total">₹{{ invoice.total_amount }}</td>
+                <td>{{ invoice.date_issued|date:"d M Y" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">« Previous</a>
+        {% endif %}
+
+        <span class="current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next »</a>
+        {% endif %}
+    </div>
+
+    {% else %}
+        <div class="no-data">No invoices found.</div>
+    {% endif %}
+</div>
+{% endblock %}
