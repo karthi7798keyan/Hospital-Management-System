@@ -18,19 +18,59 @@ Department
 .dept-title {
     font-size: 2.2rem;
     color: #007bff;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .dept-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
 }
 
+.dept-card-wrapper {
+    position: relative;
+    border-radius: 18px;
+    transition: all 0.3s ease;
+}
+
+.dept-card-wrapper::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 20px;
+    background: linear-gradient(
+        60deg,
+        #ff4ecd,
+        #ff758c,
+        #4facfe,
+        #43e97b,
+        #38f9d7
+    );
+    background-size: 400% 400%;
+    filter: blur(16px);
+    opacity: 0;
+    z-index: 0;
+    transition: opacity 0.4s ease;
+}
+
+@keyframes outerGlowMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.dept-card-wrapper:hover::before {
+    opacity: 1;
+    animation: outerGlowMove 5s linear infinite;
+}
 
 .dept-card {
+    position: relative;
     background: #ffffff;
     border-radius: 15px;
     padding: 25px;
@@ -41,9 +81,10 @@ Department
     justify-content: space-between;
     text-align: left;
     min-height: 250px;
+    z-index: 1;
 }
 
-.dept-card:hover {
+.dept-card-wrapper:hover .dept-card {
     transform: translateY(-6px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
@@ -59,7 +100,7 @@ Department
     font-size: 0.95rem;
     line-height: 1.5;
     margin-bottom: 15px;
-    flex-grow: 1; /* fills space between header and bottom */
+    flex-grow: 1;
 }
 
 .dept-hod {
@@ -79,6 +120,12 @@ Department
     font-size: 1.1rem;
     margin-top: 20px;
 }
+
+@media (min-width: 1200px) {
+    .dept-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
 </style>
 
 <div class="dept-container">
@@ -86,12 +133,14 @@ Department
 
     <div class="dept-grid">
         {% for dept in departments %}
-        <div class="dept-card">
-            <div class="dept-header">
-                <h2>{{ dept.name }}</h2>
+        <div class="dept-card-wrapper">
+            <div class="dept-card">
+                <div class="dept-header">
+                    <h2>{{ dept.name }}</h2>
+                </div>
+                <p class="dept-description">{{ dept.description }}</p>
+                <div class="dept-hod"><strong>Head:</strong> {{ dept.head_of_department }}</div>
             </div>
-            <p class="dept-description">{{ dept.description }}</p>
-            <div class="dept-hod"><strong>Head:</strong> {{ dept.head_of_department }}</div>
         </div>
         {% empty %}
         <p class="no-data">No departments available.</p>

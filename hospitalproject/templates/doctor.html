@@ -10,15 +10,12 @@ Doctors
 body {
     position: relative;
     font-family: "Poppins", sans-serif;
-    background: linear-gradient(
-        135deg,
-        #ffecd2,
-        #ffdde1,
-        #a1c4fd
-    );
+    background: linear-gradient(135deg, #ffecd2, #ffdde1, #a1c4fd);
     background-attachment: fixed;
     background-size: cover;
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 .doc-container {
@@ -35,7 +32,7 @@ body {
     color: #333;
     font-weight: 700;
     margin-bottom: 40px;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 2px 5px rgba(0,0,0,0.08);
 }
 
 .doc-grid {
@@ -46,19 +43,62 @@ body {
 }
 
 .doc-card {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255,255,255,0.95);
     border-radius: 20px;
-    padding: 25px 15px 30px 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 25px 15px 30px;
     width: 100%;
     max-width: 280px;
-    transition: all 0.3s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    position: relative;
+    overflow: visible;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
     backdrop-filter: blur(6px);
 }
 
+
+.doc-card::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 23px;
+    background: linear-gradient(
+        60deg,
+        #ff92c2 0%,
+        #8c7bff 25%,
+        #7ee6b8 50%,
+        #f7d070 75%,
+        #90c8ff 100%
+    );
+    background-size: 300% 300%;
+    z-index: 0;
+    filter: blur(3px);
+    opacity: 0;
+    transition: opacity 0.45s ease;
+    pointer-events: none;
+}
+
+@keyframes slowShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.doc-card:hover::before {
+    opacity: 0.38;
+    animation: slowShift 6s linear infinite;
+}
+
+.doc-card * {
+    position: relative;
+    z-index: 1;
+}
+
 .doc-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.10);
 }
 
 .doc-photo {
@@ -69,11 +109,12 @@ body {
     border: 4px solid #f4ede4;
     margin-bottom: 15px;
     background-color: #eee;
-    transition: transform 0.3s ease;
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
 
 .doc-card:hover .doc-photo {
-    transform: scale(1.05);
+    transform: scale(1.04);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
 }
 
 .doc-name {
@@ -111,6 +152,10 @@ body {
     font-size: 1.1rem;
     margin-top: 20px;
 }
+
+@media (max-width: 420px) {
+    .doc-card::before { top: -2px; left: -2px; right: -2px; bottom: -2px; }
+}
 </style>
 
 <div class="doc-container">
@@ -135,3 +180,8 @@ body {
     </div>
 </div>
 {% endblock %}
+
+
+
+
+
