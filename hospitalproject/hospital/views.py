@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
+
 from django.core.paginator import Paginator
 from .models import Department, Doctor, Appointment, Patient, Invoice, Prescription
 from .forms import AppointmentForm
 from django.http import HttpResponse
 from fpdf import FPDF
 from io import BytesIO
+
+from django.contrib import messages
+from .models import CallbackRequest
+
 
 def index(request):
     return render(request, 'index.html')
@@ -132,9 +136,6 @@ def cancel_appointment(request, pk):
         messages.info(request, "This appointment is already cancelled.")
     return redirect('patient')
 
-from django.shortcuts import redirect
-from django.contrib import messages
-from .models import CallbackRequest
 
 def request_callback(request):
     if request.method == "POST":
