@@ -186,11 +186,11 @@ def download_pdf(request, appointment_id):
     pdf.cell(0, 10, "Patient Details:", ln=True)
     pdf.set_font("Arial", '', 12)
     pdf.multi_cell(0, 8, f"""
-                    Name: {appointment.patient.name if appointment.patient else "N/A"}
-                    Age: {appointment.patient.age if appointment.patient else "N/A"}
-                    Gender: {appointment.patient.gender if appointment.patient else "N/A"}
-                    Phone: {appointment.patient.phone if appointment.patient else "N/A"}
-                    Address: {appointment.patient.address if appointment.patient else "N/A"}
+Name: {appointment.patient.name if appointment.patient else "N/A"}
+Age: {appointment.patient.age if appointment.patient else "N/A"}
+Gender: {appointment.patient.gender if appointment.patient else "N/A"}
+Phone: {appointment.patient.phone if appointment.patient else "N/A"}
+Address: {appointment.patient.address if appointment.patient else "N/A"}
             """)
     pdf.ln(3)
 
