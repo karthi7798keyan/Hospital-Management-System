@@ -29,7 +29,7 @@ def patient(request):
     if request.method == 'POST':
         token = request.POST.get('token')
         try:
-            token_number = int(token)  # convert token to integer
+            token_number = int(token)
             appointment = Appointment.objects.get(token_number=token_number)
         except ValueError:
             error = "Token must be a valid number."
@@ -108,7 +108,7 @@ def invoice_list(request):
         'appointment__patient', 'appointment__doctor'
     ).order_by('-date_issued')
 
-    paginator = Paginator(invoices, 10)  # Show 10 invoices per page
+    paginator = Paginator(invoices, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
