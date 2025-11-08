@@ -18,6 +18,7 @@ Invoices
         border-radius: 16px;
         box-shadow: 0 6px 18px rgba(155, 89, 182, 0.1);
         overflow: hidden;
+        padding: 20px;
     }
 
     h2 {
@@ -27,11 +28,17 @@ Invoices
         text-align: center;
         font-weight: 600;
         border-bottom: 1px solid #e0d2f0;
+        margin: 0 -20px 20px -20px;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
+        min-width: 700px;
     }
 
     th, td {
@@ -67,8 +74,6 @@ Invoices
         color: #888;
         font-style: italic;
     }
-
-
 
     .pagination {
         display: flex;
@@ -112,34 +117,36 @@ Invoices
     <h2>Patient Invoices</h2>
 
     {% if page_obj %}
-    <table>
-        <thead>
-            <tr>
-                <th>Patient</th>
-                <th>Doctor</th>
-                <th>Date</th>
-                <th>Consultation Fee</th>
-                <th>Medicine Cost</th>
-                <th>Other Charges</th>
-                <th>Total</th>
-                <th>Issued</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for invoice in page_obj %}
-            <tr>
-                <td>{{ invoice.appointment.patient.name }}</td>
-                <td>{{ invoice.appointment.doctor.name }}</td>
-                <td>{{ invoice.appointment.date }}</td>
-                <td>₹{{ invoice.consultation_fee }}</td>
-                <td>₹{{ invoice.medicine_cost }}</td>
-                <td>₹{{ invoice.other_charges }}</td>
-                <td class="total">₹{{ invoice.total_amount }}</td>
-                <td>{{ invoice.date_issued|date:"d M Y" }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Consultation Fee</th>
+                    <th>Medicine Cost</th>
+                    <th>Other Charges</th>
+                    <th>Total</th>
+                    <th>Issued</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for invoice in page_obj %}
+                <tr>
+                    <td>{{ invoice.appointment.patient.name }}</td>
+                    <td>{{ invoice.appointment.doctor.name }}</td>
+                    <td>{{ invoice.appointment.date }}</td>
+                    <td>₹{{ invoice.consultation_fee }}</td>
+                    <td>₹{{ invoice.medicine_cost }}</td>
+                    <td>₹{{ invoice.other_charges }}</td>
+                    <td class="total">₹{{ invoice.total_amount }}</td>
+                    <td>{{ invoice.date_issued|date:"d M Y" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <div class="pagination">
         {% if page_obj.has_previous %}
