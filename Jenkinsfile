@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        PYTHON_VENV = '.venv'
-    }
-
     stages {
         stage('Clean Workspace') {
             steps {
@@ -25,8 +21,8 @@ pipeline {
         stage('Run Django Commands') {
             steps {
                 echo 'Running Django commands...'
-                bat """
-                call ${PYTHON_VENV}\\Scripts\\activate
+                sh """
+                source .venv/bin/activate
                 python manage.py makemigrations
                 python manage.py migrate
                 python manage.py test
