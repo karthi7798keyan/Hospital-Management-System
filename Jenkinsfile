@@ -1,47 +1,64 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = "hms-backend"
+        CONTAINER_NAME = "hms-backend"
+        PORT_MAPPING = "8080:8080"
+    }
+
     stages {
+
         stage('Clean Workspace') {
             steps {
+                echo "Cleaning workspace..."
                 cleanWs()
             }
         }
 
-    stages {
+        stage('Checkout Code') {
+            steps {
+                echo "Checking out code from Git..."
+                checkout scm
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
-                sh '''
-                docker build -t hms-backend .
-                '''
+                echo "Building Docker image..."
+                sh "docker build -t ${IMAGE_NAME} ."
             }
         }
 
         stage('Stop Existing Container') {
             steps {
+                echo "Stopping and removing existing container if running..."
                 sh '''
-                docker stop hms-backend || true
-                docker rm hms-backend || true
+                if [ $(docker ps -q -f name=${CONTAINER_NAME}) ]; then
+                    docker stop ${CONTAINER_NAME}
+                    docker rm ${CONTAINER_NAME}
+                fi
                 '''
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                sh '''
-                docker run -d -p 8000:8000 --name hms-backend hms-backend
-                '''
+                echo "Running new Docker container..."
+                sh "docker run -d -p ${PORT_MAPPING} --name ${CONTAINER_NAME} ${IMAGE_NAME}"
             }
         }
     }
 
     post {
+        always {
+            echo 'Pipeline finished.'
+        }
         success {
-            echo 'Deployment successful!'
+            echo 'Build and deployment successful!'
         }
         failure {
-            echo 'Something went wrong! Check the logs.'
+            echo 'Pipeline failed! Check logs for details.'
         }
     }
 }
