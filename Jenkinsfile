@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Checkout Code') {
+        stage('Clean Workspace') {
             steps {
-                git branch: 'feature/rest-api-foundation',
-                    url: 'https://github.com/karthi7798keyan/Hospital-Management-System.git'
+                cleanWs()
             }
         }
+
+    stages {
 
         stage('Build Docker Image') {
             steps {
