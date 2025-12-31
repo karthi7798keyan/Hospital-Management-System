@@ -22,10 +22,9 @@ pipeline {
             }
         }
 
-        stage('Run Django Tests / Scripts') {
+        stage('Run Django Commands') {
             steps {
                 echo 'Running Django commands...'
-                // Activate virtual environment and run commands
                 bat """
                 call ${PYTHON_VENV}\\Scripts\\activate
                 python manage.py makemigrations
