@@ -15,28 +15,32 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-            steps {
-                script {
-                    docker.build("${IMAGE_NAME}:latest")
-                }
-            }
-        }
+    steps {
+        sh '''
+        docker build -t hms-backend .
+        '''
+    }
+}
+
 
         stage('Stop Existing Container') {
-            steps {
-                script {
-                    sh "docker rm -f ${CONTAINER_NAME} || true"
-                }
-            }
-        }
+    steps {
+        sh '''
+        docker stop hms-backend || true
+        docker rm hms-backend || true
+        '''
+    }
+}
+
 
         stage('Run Docker Container') {
-            steps {
-                script {
-                    sh "docker run -d -p 8000:8000 --name ${CONTAINER_NAME} ${IMAGE_NAME}:latest"
-                }
-            }
-        }
+    steps {
+        sh '''
+        docker run -d -p 8000:8000 --name hms-backend hms-backend
+        '''
+    }
+}
+
     }
 
     post {
